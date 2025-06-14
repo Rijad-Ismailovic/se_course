@@ -17,6 +17,10 @@ public class Vehicle {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @ManyToOne
+    @JoinColumn(name = "fk_user_id")
+    private User user;
+
     @Column(name = "title")
     private String title;
 
@@ -27,9 +31,30 @@ public class Vehicle {
     private String model;
 
     @Column(name = "year_of_manufacture")
-    private int yearOfManufacture;
+    private Integer yearOfManufacture;
 
-    @ManyToOne
-    @JoinColumn(name = "fk_user_id")
-    private User user;
+    @Column(name = "engine_size")
+    private Double engineSize;
+
+    @Column(name = "fuel_type")
+    private String fuelType;
+
+    @Column(name = "kW")
+    private Integer kW;
+
+    @Column(name = "distance_traveled")
+    private Integer distanceTraveled;
+
+    @Column(name = "city")
+    private String city;
+
+    @Column(name = "price")
+    private Double price;
+
+    @Column(name = "description", columnDefinition = "TEXT")
+    @Lob
+    private String description;
+
+    @Column(name = "image_path")
+    private String imagePath;
 }

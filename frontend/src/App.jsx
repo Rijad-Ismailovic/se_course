@@ -1,5 +1,4 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { useState } from "react";
 import NavbarComponent from "./components/NavbarComponent";
 import HeaderComponent from "./components/HomepageHeaderComponent";
 import HomepageComponent from "./components/HomepageBodyComponent";
@@ -10,12 +9,14 @@ import LoginComponent from "./components/LoginComponent";
 import { Toaster } from "react-hot-toast";
 import RegistrationComponent from "./components/RegistrationComponent";
 import ProfileBodyComponent from "./components/ProfileBodyComponent";
+import "cropperjs/dist/cropper.css";
+import AdminComponent from "./components/AdminComponent";
 
 function App() {
   return (
     <>
       <BrowserRouter>
-        <Toaster/>
+        <Toaster />
         <NavbarComponent></NavbarComponent>
         <Routes>
           {/* http://localhost:3000/api/vehicles/ */}
@@ -49,14 +50,19 @@ function App() {
           {/* http://localhost:3000/api/login */}
           <Route
             path="/login"
-            element={<LoginComponent></LoginComponent>}>
-          </Route>
+            element={<LoginComponent></LoginComponent>}
+          ></Route>
 
           {/* http://localhost:3000/api/registration */}
           <Route
             path="/registration"
-            element={<RegistrationComponent></RegistrationComponent>}>
-            </Route>
+            element={<RegistrationComponent></RegistrationComponent>}
+          ></Route>
+
+          <Route
+            path="/admin"
+            element={<AdminComponent></AdminComponent>}
+          ></Route>
         </Routes>
         <FooterComponent></FooterComponent>
       </BrowserRouter>

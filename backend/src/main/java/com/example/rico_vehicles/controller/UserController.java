@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -40,6 +42,23 @@ public class UserController {
         }
     }
 
+    @PutMapping("{id}")
+    public ResponseEntity<?> updateUser(@PathVariable("id") Long userId, @RequestPart("userDto") UserDto updatedUser, @RequestPart(value = "imageFile", required = false) MultipartFile image){
+        System.out.println(image);
+        try {
+            if(image != null){
+                String imagePath = FileService.uploadFile(image, "uploads/profile_pictures/");
+                updatedUser.setImagePath(imagePath);
+            }else{
+                updatedUser.setImagePath("Do not change image");
+            }
+            UserDto userDto = userService.updateUser(userId, updatedUser);
+            return ResponseEntity.ok(userDto);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error updating user: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @GetMapping("{id}")
     public ResponseEntity<UserDto> getUserById(@PathVariable("id") Long userId){
         UserDto userDto = userService.getUserById(userId);
@@ -50,12 +69,6 @@ public class UserController {
     public ResponseEntity<List<UserDto>> getAllUsers(){
         List<UserDto> users = userService.getAllUsers();
         return ResponseEntity.ok(users);
-    }
-
-    @PutMapping("{id}")
-    public ResponseEntity<UserDto> updateUser(@PathVariable("id") Long userId, @RequestBody UserDto updatedUser){
-        UserDto userDto = userService.updateUser(userId, updatedUser);
-        return ResponseEntity.ok(userDto);
     }
 
     @DeleteMapping("{id}")
@@ -81,7 +94,14 @@ public class UserController {
     }
 
     @PostMapping("/emailCheck")
-    public ResponseEntity<Boolean> doesUserWithEmailExist(@RequestBody String email){
+    public ResponseEntity<Boolean> doesUserWithEmailExist(@RequestBody Map<String, String> requestBody){
+        //String decodedEmail = URLDecoder.decode(email, StandardCharsets.UTF_8);
+        String email = requestBody.get("email").trim();
         return ResponseEntity.ok(userService.doesUserWithEmailExist(email));
+    }
+
+    @PostMapping("/authenticatePassword")
+    public ResponseEntity<Boolean> authenticatePassword(@RequestBody LoginRequestDto loginRequestDto){
+        return ResponseEntity.ok(userService.authenticateUser(loginRequestDto.getEmail(), loginRequestDto.getPassword()));
     }
 }

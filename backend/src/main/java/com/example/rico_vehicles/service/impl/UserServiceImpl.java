@@ -53,13 +53,17 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User with given ID does not exist: " + userId));
 
-
         String hashedPassword = passwordEncoder.encode(updatedUser.getPassword());
 
         user.setEmail(updatedUser.getEmail());
         user.setPassword(hashedPassword);
         user.setFirstName(updatedUser.getFirstName());
         user.setLastName(updatedUser.getLastName());
+        if (updatedUser.getImagePath() != "Do not change image"){
+            user.setImagePath(updatedUser.getImagePath());
+        } else{
+            user.setImagePath(user.getImagePath()); //keep same image. very bad fix but idc
+        }
 
         User updatedUserObj = userRepository.save(user);
 
@@ -84,7 +88,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean authenticateUser(String email, String password) {
         Optional<User> user = userRepository.getUserByEmail(email);
-
         if (user.isEmpty()) {
             return false;
         }
@@ -99,11 +102,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean doesUserWithEmailExist(String email) {
         Optional<User> user = userRepository.getUserByEmail(email);
-        if(user.isPresent()){
-            System.out.println("user is found: "+user);
-        } else {
-            System.out.println("user is not found: "+user);
-        }
         return user.isPresent();
     }
 
