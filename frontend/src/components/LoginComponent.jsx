@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { login } from "../services/UserService";
 import { useNavigate } from "react-router-dom";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 const LoginComponent = () => {
   const navigator = useNavigate();
@@ -98,6 +98,7 @@ const LoginComponent = () => {
           {/* Submit button */}
           <div className="text-center">
             <button
+              id="submit_button"
               type="button"
               data-mdb-button-init
               data-mdb-ripple-init
@@ -111,7 +112,7 @@ const LoginComponent = () => {
           {/* Register link */}
           <div className="text-center">
             <p>
-              Don't have an account?
+              Dont have an account?
               <button
                 className="btn btn-link"
                 onClick={() => navigator("/registration", { replace: true })}

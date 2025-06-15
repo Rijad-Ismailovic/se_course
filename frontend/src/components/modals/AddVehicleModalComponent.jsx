@@ -137,7 +137,6 @@ function AddVehicleModal() {
   });
 
   const cropperRef = useRef(null);
-  const [croppedFile, setCroppedFile] = useState("");
   const handleImageChange = (e) => {
     if (e.target.files && e.target.files.length > 0) {
       const image = e.target.files[0];
@@ -194,7 +193,7 @@ function AddVehicleModal() {
             },
             localStorage.getItem("userId")
           )
-            .then((response) => {
+            .then(() => {
               setShow(false);
               navigator("/temp-route");
               setTimeout(
@@ -307,6 +306,7 @@ function AddVehicleModal() {
   return (
     <>
       <button
+        id="add_new_listing"
         className="btn btn-outline-dark mt-auto"
         onClick={() => handleShow(true)}
       >
@@ -322,6 +322,7 @@ function AddVehicleModal() {
             <Form.Group className="mb-3">
               <Form.Label>Title</Form.Label>
               <Form.Control
+                id="title"
                 type="text"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
@@ -337,6 +338,7 @@ function AddVehicleModal() {
                 <Form.Group className="mb-3">
                   <Form.Label>Manufacturer</Form.Label>
                   <Form.Select
+                    id="manufacturer"
                     value={manufacturer}
                     onChange={(e) => setManufacturer(e.target.value)}
                     className={errors.manufacturer ? "is-invalid" : ""}
@@ -355,6 +357,7 @@ function AddVehicleModal() {
                 <Form.Group className="mb-3">
                   <Form.Label>Model</Form.Label>
                   <Form.Control
+                    id="model"
                     type="text"
                     value={model}
                     onChange={(e) => setModel(e.target.value)}
@@ -366,16 +369,16 @@ function AddVehicleModal() {
                 </Form.Group>
               </Col>
             </Row>
+
             <Row>
               <Col>
                 <Form.Group className="mb-3">
                   <Form.Label>Year</Form.Label>
                   <Form.Control
+                    id="yearOfManufacture"
                     type="number"
                     value={yearOfManufacture}
-                    onChange={(e) => {
-                      setYearOfManufacture(e.target.value);
-                    }}
+                    onChange={(e) => setYearOfManufacture(e.target.value)}
                     className={errors.yearOfManufacture ? "is-invalid" : ""}
                   />
                   <Form.Control.Feedback type="invalid">
@@ -387,6 +390,7 @@ function AddVehicleModal() {
                 <Form.Group className="mb-3">
                   <Form.Label>Engine Size</Form.Label>
                   <Form.Control
+                    id="engineSize"
                     type="number"
                     value={engineSize}
                     onChange={(e) => setEngineSize(e.target.value)}
@@ -401,6 +405,7 @@ function AddVehicleModal() {
                 <Form.Group className="mb-3">
                   <Form.Label>kW</Form.Label>
                   <Form.Control
+                    id="kw"
                     type="number"
                     value={kw}
                     onChange={(e) => setKw(e.target.value)}
@@ -411,11 +416,11 @@ function AddVehicleModal() {
                   </Form.Control.Feedback>
                 </Form.Group>
               </Col>
-
               <Col>
                 <Form.Group className="mb-3">
-                  <Form.Label>Kilometraza</Form.Label>
+                  <Form.Label>Kilometraža</Form.Label>
                   <Form.Control
+                    id="distanceTraveled"
                     type="number"
                     placeholder="km"
                     value={distanceTraveled}
@@ -427,63 +432,70 @@ function AddVehicleModal() {
                   </Form.Control.Feedback>
                 </Form.Group>
               </Col>
-              <Row>
-                <Col>
-                  <Form.Group className="mb-3">
-                    <Form.Label>Fuel Type</Form.Label>
-                    <Form.Select
-                      value={fuelType}
-                      onChange={(e) => setFuelType(e.target.value)}
-                      className={errors.fuelType ? "is-invalid" : ""}
-                    >
-                      <option></option>
-                      <option>Benzin</option>
-                      <option>Dizel</option>
-                      <option>Plin</option>
-                      <option>Struja</option>
-                      <option>Hibrid</option>
-                    </Form.Select>
-                    <Form.Control.Feedback type="invalid">
-                      {errors.fuelType}
-                    </Form.Control.Feedback>
-                  </Form.Group>
-                </Col>
-
-                <Col>
-                  <Form.Group className="mb-3">
-                    <Form.Label>City</Form.Label>
-                    <Form.Select
-                      value={city}
-                      onChange={(e) => setCity(e.target.value)}
-                      className={errors.city ? "is-invalid" : ""}
-                    >
-                      <option></option>
-                      {cities.map((cit, index) => (
-                        <option key={index}>{cit}</option>
-                      ))}
-                    </Form.Select>
-                    <Form.Control.Feedback type="invalid">
-                      {errors.city}
-                    </Form.Control.Feedback>
-                  </Form.Group>
-                </Col>
-              </Row>
-              <Form.Group className="mb-3">
-                <Form.Label>Price</Form.Label>
-                <Form.Control
-                  type="number"
-                  value={price}
-                  onChange={(e) => setPrice(e.target.value)}
-                  className={errors.price ? "is-invalid" : ""}
-                />
-                <Form.Control.Feedback type="invalid">
-                  {errors.price}
-                </Form.Control.Feedback>
-              </Form.Group>
             </Row>
+
+            <Row>
+              <Col>
+                <Form.Group className="mb-3">
+                  <Form.Label>Fuel Type</Form.Label>
+                  <Form.Select
+                    id="fuelType"
+                    value={fuelType}
+                    onChange={(e) => setFuelType(e.target.value)}
+                    className={errors.fuelType ? "is-invalid" : ""}
+                  >
+                    <option></option>
+                    <option>Benzin</option>
+                    <option>Dizel</option>
+                    <option>Plin</option>
+                    <option>Struja</option>
+                    <option>Hibrid</option>
+                  </Form.Select>
+                  <Form.Control.Feedback type="invalid">
+                    {errors.fuelType}
+                  </Form.Control.Feedback>
+                </Form.Group>
+              </Col>
+
+              <Col>
+                <Form.Group className="mb-3">
+                  <Form.Label>City</Form.Label>
+                  <Form.Select
+                    id="city"
+                    value={city}
+                    onChange={(e) => setCity(e.target.value)}
+                    className={errors.city ? "is-invalid" : ""}
+                  >
+                    <option></option>
+                    {cities.map((cit, index) => (
+                      <option key={index}>{cit}</option>
+                    ))}
+                  </Form.Select>
+                  <Form.Control.Feedback type="invalid">
+                    {errors.city}
+                  </Form.Control.Feedback>
+                </Form.Group>
+              </Col>
+            </Row>
+
+            <Form.Group className="mb-3">
+              <Form.Label>Price</Form.Label>
+              <Form.Control
+                id="price"
+                type="number"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+                className={errors.price ? "is-invalid" : ""}
+              />
+              <Form.Control.Feedback type="invalid">
+                {errors.price}
+              </Form.Control.Feedback>
+            </Form.Group>
+
             <Form.Group className="mb-3">
               <Form.Label>Description</Form.Label>
               <Form.Control
+                id="description"
                 as="textarea"
                 rows={3}
                 value={description}
@@ -494,18 +506,21 @@ function AddVehicleModal() {
                 {errors.description}
               </Form.Control.Feedback>
             </Form.Group>
+
             <Form.Group className="mb-3">
               <Form.Label>Thumbnail Picture</Form.Label>
               <Form.Control
+                id="file"
                 type="file"
                 accept="image/*"
-                onChange={handleImageChange} //onChange={(e) => setFile(e.target.files[0])}
+                onChange={handleImageChange}
                 className={errors.file ? "is-invalid" : ""}
               />
               <Form.Control.Feedback type="invalid">
                 {errors.file}
               </Form.Control.Feedback>
             </Form.Group>
+
             {file && (
               <div
                 className="position-relative overflow-hidden"

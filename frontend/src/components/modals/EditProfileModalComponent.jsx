@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
@@ -59,7 +59,6 @@ function EditProfileModal() {
   };
 
   const cropperRef = useRef(null);
-  const [croppedFile, setCroppedFile] = useState("");
   const handleImageChange = (e) => {
     if (e.target.files && e.target.files.length > 0) {
       const image = e.target.files[0];
@@ -170,6 +169,7 @@ function EditProfileModal() {
   return (
     <>
       <Button
+        id="edit_icon"
         variant="link"
         onClick={handleShow}
         className="p-2 mb-1 border-0 bg-transparent"
@@ -185,8 +185,9 @@ function EditProfileModal() {
           <Container>
             <Form>
               <Form.Group className="mb-3">
-                <Form.Label>Email address</Form.Label>
+                <Form.Label htmlFor="email">Email address</Form.Label>
                 <Form.Control
+                  id="email"
                   type="email"
                   value={email}
                   autoFocus
@@ -194,11 +195,13 @@ function EditProfileModal() {
                   readOnly
                 />
               </Form.Group>
+
               <Row>
                 <Col>
                   <Form.Group className="mb-3">
-                    <Form.Label>First name</Form.Label>
+                    <Form.Label htmlFor="firstName">First name</Form.Label>
                     <Form.Control
+                      id="firstName"
                       type="text"
                       value={firstName}
                       onChange={(e) => setFirstName(e.target.value)}
@@ -211,8 +214,9 @@ function EditProfileModal() {
                 </Col>
                 <Col>
                   <Form.Group className="mb-3">
-                    <Form.Label>Last name</Form.Label>
+                    <Form.Label htmlFor="lastName">Last name</Form.Label>
                     <Form.Control
+                      id="lastName"
                       type="text"
                       value={lastName}
                       onChange={(e) => setLastName(e.target.value)}
@@ -224,10 +228,12 @@ function EditProfileModal() {
                   </Form.Group>
                 </Col>
               </Row>
+
               <Row>
                 <Form.Group className="mb-3">
-                  <Form.Label>Old Password</Form.Label>
+                  <Form.Label htmlFor="oldPassword">Old Password</Form.Label>
                   <Form.Control
+                    id="oldPassword"
                     type="password"
                     value={oldPassword}
                     onChange={(e) => setOldPassword(e.target.value)}
@@ -238,8 +244,9 @@ function EditProfileModal() {
                   </Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group className="mb-3">
-                  <Form.Label>New Password</Form.Label>
+                  <Form.Label htmlFor="newPassword">New Password</Form.Label>
                   <Form.Control
+                    id="newPassword"
                     type="password"
                     value={newPassword}
                     onChange={(e) => setNewPassword(e.target.value)}
@@ -250,9 +257,11 @@ function EditProfileModal() {
                   </Form.Control.Feedback>
                 </Form.Group>
               </Row>
+
               <Form.Group className="mb-3">
-                <Form.Label>Profile picture</Form.Label>
+                <Form.Label htmlFor="file">Profile picture</Form.Label>
                 <Form.Control
+                  id="file"
                   type="file"
                   accept="image/*"
                   onChange={handleImageChange}
@@ -262,6 +271,7 @@ function EditProfileModal() {
                   picture
                 </Form.Text>
               </Form.Group>
+
               {file && (
                 <div
                   className="position-relative overflow-hidden"
@@ -284,7 +294,11 @@ function EditProfileModal() {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleSaveChanges}>
+          <Button
+            id="save_changes_button"
+            variant="primary"
+            onClick={handleSaveChanges}
+          >
             Save Changes
           </Button>
         </Modal.Footer>

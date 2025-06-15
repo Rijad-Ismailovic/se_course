@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { getUserById } from "../services/UserService";
 import { toast } from "react-hot-toast";
@@ -89,6 +89,7 @@ const NavbarComponent = () => {
           </ul>
           <form className="d-flex">
             <button
+              id="login_button"
               className="btn btn-outline-light"
               type="submit"
               onClick={() => {

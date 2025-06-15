@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { getVehicleById } from "../services/VehicleService";
 import { useParams } from "react-router-dom";
 import { getUserById } from "../services/UserService";
-import { useNavigate, Link } from "react-router-dom"
+import { Link } from "react-router-dom"
 
 const VehicleListingComponent = () => {
-  const navigator = useNavigate()
-
   const [firstName, setFirstName] = useState("")
   const [lastName, setLastName] = useState("")
   const [userImage, setUserImage] = useState("")
