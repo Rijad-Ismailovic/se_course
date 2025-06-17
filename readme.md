@@ -17,7 +17,7 @@ npm run dev
 
 InteliJ -> Open backend folder -> Click run
 
+final documentation - https://docs.google.com/document/d/1zs7lxw9wwvSUYgomX3x-MwNY-Oznsdxvpkn1Hr2ofGU/edit?usp=sharing
 
 demo - https://drive.google.com/file/d/1z1IuYduxeKX8mG9Ydr3jq4WrpnignRwR/view?usp=sharing
 
-final documentation - https://docs.google.com/document/d/1zs7lxw9wwvSUYgomX3x-MwNY-Oznsdxvpkn1Hr2ofGU/edit?usp=sharing
